@@ -7,5 +7,10 @@
     <color name="colorSplashText">#F0F0F0</color>
     <color name="colorProgressBar">#FFCE511C</color>
     <color name="colorTextView">#83898E</color>
+    <color name="df_red">#dc3545</color>
+    <color name="df_danger">#dc3545</color>
+    <color name="formBg">#f0f0f0</color>
+    <color name="black_alpha_75">#bf000000</color>
+    <color name="white">#ffffffff</color>
 
 </resources>
