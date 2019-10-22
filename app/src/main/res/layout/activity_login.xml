@@ -105,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="¡Regístrate ya!"
+                    android:onClick="iniciarIntentRegistro"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
