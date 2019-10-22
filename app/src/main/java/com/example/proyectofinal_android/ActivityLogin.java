@@ -21,9 +21,12 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void initViews(){
-        editText_nombreUsuario =findViewById(R.id.editTextUname);
+        editText_nombreUsuario = findViewById(R.id.editTextUname);
     }
     public void iniciarIntentRegistro(View view) {
         startActivity(new Intent(this,ActivityRegistro.class));
+    }
+    public void iniciarIntentProductos(View v){
+        startActivity(new Intent(this,ActivityProductos.class));
     }
 }

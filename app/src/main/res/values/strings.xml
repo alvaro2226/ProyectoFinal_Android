@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProyectoFinal_Android</string>
+    <string name="app_name">OrderTracker</string>
     <string name="booki">BookI</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="read_it_together">Read it together</string>

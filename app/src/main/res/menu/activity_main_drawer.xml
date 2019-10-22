@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:id="@+id/menu_verProductos"
+
+            android:title="Productos" />
+        <item android:id="@+id/menu_verPedidos"
+
+            android:title="Mis pedidos" />
+        <item android:id="@+id/menu_verCuenta"
+
+            android:title="Mi cuenta" />
+    </group>
+
+</menu>

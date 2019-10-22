@@ -88,6 +88,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="40dp"
                     android:background="#0D67C2"
+                    android:onClick="iniciarIntentProductos"
                     android:text="Iniciar sesión
 " />
 
