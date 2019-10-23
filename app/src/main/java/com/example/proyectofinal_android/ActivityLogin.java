@@ -27,6 +27,6 @@ public class ActivityLogin extends AppCompatActivity {
         startActivity(new Intent(this,ActivityRegistro.class));
     }
     public void iniciarIntentProductos(View v){
-        startActivity(new Intent(this,ActivityProductos.class));
+        startActivity(new Intent(this, ActivityListaProductos.class));
     }
 }
