@@ -2,16 +2,21 @@ package com.example.proyectofinal_android;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -21,14 +26,16 @@ import com.example.proyectofinal_android.Pojos.Producto;
 
 import java.util.ArrayList;
 
-public class ActivityListaProductos extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ActivityListaProductos extends AppCompatActivity implements SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private ListView listView;
     private static AdapterProductos adapter;
     private SearchView editsearch;
-    public  static  ArrayList<Producto> productosAux;
+    public static ArrayList<Producto> productosAux;
+
+    private boolean activityActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
 
         productosAux = new ArrayList<>();
 
+        setNavigationViewListener();
         iniciarListView();
         initViews();
 
@@ -51,27 +59,27 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
 
     private void initViews() {
 
-
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.addDrawerListener(toggle);
-        // Locate the EditText in listview_main.xml
+
         editsearch = (SearchView) findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
-        //supportActionBar.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setHomeButtonEnabled(true)
 
+        editsearch.clearFocus();
 
 
     }
 
-    private void iniciarListView(){
+    private void iniciarListView() {
 
         listView = findViewById(R.id.listView);
         ArrayList<Producto> productos = new ArrayList<>();
-        for (int i =0 ; i < 10 ; i++){
+        for (int i = 0; i < 10; i++) {
             Producto producto = new Producto();
             producto.setNombre("Nombre " + i);
             producto.setDescripcion("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae suscipit erat. Aenean vehicula gravida orci eu venenatis.");
@@ -79,7 +87,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
             productosAux.add(producto);
         }
 
-        adapter = new AdapterProductos(productos,getApplicationContext());
+        adapter = new AdapterProductos(productos, getApplicationContext());
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -93,11 +101,12 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
 
     }
 
-    private void iniciarIntentProducto(int position){
-        Intent intent = new Intent(this,ActivityProducto.class);
-        intent.putExtra("posicionProducto",position);
+    private void iniciarIntentProducto(int position) {
+        Intent intent = new Intent(this, ActivityProducto.class);
+        intent.putExtra("posicionProducto", position);
         startActivity(intent);
     }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,6 +132,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (toggle.onOptionsItemSelected(item)) {
+            Log.e("Drawer", "CLICK");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -140,5 +150,50 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         Log.e("Search: ", s);
         adapter.filter(s);
         return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+
+        switch (menuItem.getItemId()) {
+
+            case R.id.menu_verCuenta: {
+
+
+                startActivity(new Intent(this, ActivityRegistro.class));
+
+                break;
+            }
+            case R.id.menu_verPedidos: {
+
+                if (!activityActual) {
+                    startActivity(new Intent(this, ActivityListaProductos.class));
+                }
+
+                break;
+            }
+        }
+        //close navigation drawer
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void setNavigationViewListener() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activityActual = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        activityActual = false;
     }
 }

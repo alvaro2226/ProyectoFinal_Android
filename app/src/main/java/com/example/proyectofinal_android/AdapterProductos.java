@@ -3,7 +3,6 @@ package com.example.proyectofinal_android;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,23 +78,24 @@ public class AdapterProductos extends ArrayAdapter<Producto> {
     public void filter(String charText) {
         charText = charText.toLowerCase();
 
-        Log.e("Filter string: ", charText);
-        Log.e("Productos size:  ", productos.size() + "");
-        Log.e("ProductosAux size:  ", ActivityListaProductos.productosAux.size() + "");
+        //Log.e("Filter string: ", charText);
+        //Log.e("Productos size:  ", productos.size() + "");
+        //Log.e("ProductosAux size:  ", ActivityListaProductos.productosAux.size() + "");
 
         productos.clear();
         if (charText.length() == 0) {
-            productos = ActivityListaProductos.productosAux;
+            productos.addAll(ActivityListaProductos.productosAux);
         } else {
-            Log.e("ProductosAux","Entra en 1");
-            Log.e("ProductosAux size:  ", ActivityListaProductos.productosAux.size() + "");
+
+            //Log.e("ProductosAux","Entra en 1");
+            //Log.e("ProductosAux size:  ", ActivityListaProductos.productosAux.size() + "");
 
             for (int i = 0; i < ActivityListaProductos.productosAux.size() ; i ++) {
 
-                Log.e("ProductosAux nombre", ActivityListaProductos.productosAux.get(i).getNombre().toLowerCase());
+                //Log.e("ProductosAux nombre", ActivityListaProductos.productosAux.get(i).getNombre().toLowerCase());
 
                 if (ActivityListaProductos.productosAux.get(i).getNombre().toLowerCase().contains(charText)) {
-                    Log.e("ProductosAux contiene  ", charText);
+                    //Log.e("ProductosAux contiene  ", charText);
                     productos.add(ActivityListaProductos.productosAux.get(i));
                 }
 

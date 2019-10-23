@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ActivityProducto"></activity>
-        <activity android:name=".ActivityListaProductos" />
+        <activity android:name=".ActivityListaProductos"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ActivityRegistro" />
         <activity
             android:name=".ActivityLogin"
