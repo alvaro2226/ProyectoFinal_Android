@@ -1,9 +1,11 @@
-package com.example.proyectofinal_android;
+package com.example.proyectofinal_android.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.proyectofinal_android.R;
 
 public class ActivityProducto extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.proyectofinal_android;
+package com.example.proyectofinal_android.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.proyectofinal_android.Activities.ActivityListaProductos;
 import com.example.proyectofinal_android.Pojos.Producto;
+import com.example.proyectofinal_android.R;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class AdapterProductos extends ArrayAdapter<Producto> {
     Context context;
 
     public AdapterProductos(ArrayList<Producto> data, Context context) {
-        super(context, R.layout.list_design, data);
+        super(context, R.layout.listview_listaproductos, data);
         this.productos = data;
         this.context=context;
     }
@@ -46,9 +48,9 @@ public class AdapterProductos extends ArrayAdapter<Producto> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_design, parent, false);
+            convertView = inflater.inflate(R.layout.listview_listaproductos, parent, false);
             viewHolder.textView_nombre = (TextView) convertView.findViewById(R.id.textView_productoNombre);
-            viewHolder.textView_Descripcion = (TextView) convertView.findViewById(R.id.textView_productoDescripcion);
+            viewHolder.textView_Descripcion = (TextView) convertView.findViewById(R.id.textView_productoDescripcion2);
             viewHolder.imagenProducto = (ImageView) convertView.findViewById(R.id.imageView_imagenProducto);
             viewHolder.botonAñadir = (ImageButton) convertView.findViewById(R.id.botonAnadir);
 

@@ -1,5 +1,6 @@
-package com.example.proyectofinal_android;
+package com.example.proyectofinal_android.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
@@ -11,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,9 +20,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
+import com.example.proyectofinal_android.Adapters.AdapterProductos;
 import com.example.proyectofinal_android.Pojos.Producto;
+import com.example.proyectofinal_android.R;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,6 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     private static AdapterProductos adapter;
     private SearchView editsearch;
     public static ArrayList<Producto> productosAux;
-
     private boolean activityActual;
 
     @Override
@@ -86,7 +86,6 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
             productos.add(producto);
             productosAux.add(producto);
         }
-
         adapter = new AdapterProductos(productos, getApplicationContext());
         listView.setAdapter(adapter);
 
@@ -131,11 +130,10 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (toggle.onOptionsItemSelected(item)) {
-            Log.e("Drawer", "CLICK");
-            return true;
-        }
+        Log.e("Menu","BotonCarrito");
+        startActivity(new Intent(this, ActivityCarrito.class));
         return super.onOptionsItemSelected(item);
+
     }
 
 

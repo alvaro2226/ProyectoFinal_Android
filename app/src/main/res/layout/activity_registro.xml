@@ -13,7 +13,7 @@
         android:layout_marginHorizontal="30dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ActivityRegistro">
+        tools:context=".Activities.ActivityRegistro">
 
 
         <LinearLayout

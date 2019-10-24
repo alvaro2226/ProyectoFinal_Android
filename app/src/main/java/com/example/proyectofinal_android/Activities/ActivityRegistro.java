@@ -1,10 +1,12 @@
-package com.example.proyectofinal_android;
+package com.example.proyectofinal_android.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.proyectofinal_android.R;
 
 import java.util.ArrayList;
 
