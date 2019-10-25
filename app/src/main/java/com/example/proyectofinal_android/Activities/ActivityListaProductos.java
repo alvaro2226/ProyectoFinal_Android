@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class ActivityListaProductos extends AppCompatActivity implements SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawer;
+    protected DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private ListView listView;
     private static AdapterProductos adapter;
@@ -66,6 +66,8 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.addDrawerListener(toggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         editsearch = (SearchView) findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
@@ -153,24 +155,25 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+        Log.e("Menu","Drawer");
 
         switch (menuItem.getItemId()) {
 
             case R.id.menu_verCuenta: {
 
-
+                Log.e("Menu","Ver cuenta");
                 startActivity(new Intent(this, ActivityRegistro.class));
 
                 break;
             }
+
             case R.id.menu_verPedidos: {
+                Log.e("Menu","Ver pedidos");
 
-                if (!activityActual) {
-                    startActivity(new Intent(this, ActivityListaProductos.class));
-                }
-
+                    startActivity(new Intent(this, ActivityDetallesPedido.class));
                 break;
             }
+
         }
         //close navigation drawer
         drawer.closeDrawer(GravityCompat.START);

@@ -65,8 +65,7 @@ public class AdapterProductos extends ArrayAdapter<Producto> {
         viewHolder.textView_nombre.setText(producto.getNombre());
         viewHolder.textView_Descripcion.setText(producto.getDescripcion());
         viewHolder.imagenProducto.setImageResource(R.drawable.logo);
-        viewHolder.botonAñadir.setImageDrawable(getContext().getResources().getDrawable(android.R.drawable.ic_input_add,null));
-
+        viewHolder.botonAñadir.setVisibility(View.INVISIBLE);
         viewHolder.botonAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
