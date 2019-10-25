@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.ActivityDetallesPedido"></activity>
+        <activity android:name=".Activities.ActivityPedidos"></activity>
+        <activity android:name=".Activities.ActivityDetallesPedido" />
         <activity android:name=".Activities.ActivityCarrito" />
         <activity android:name=".Activities.ActivityProducto" />
         <activity

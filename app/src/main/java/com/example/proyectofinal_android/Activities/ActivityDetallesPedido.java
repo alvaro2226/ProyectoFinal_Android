@@ -27,7 +27,7 @@ public class ActivityDetallesPedido extends AppCompatActivity {
         setContentView(R.layout.activity_detalles_pedido);
 
         iniciarListView2();
-        iniciarDrawer();
+        //iniciarDrawer();
 
     }
     private void iniciarDrawer(){

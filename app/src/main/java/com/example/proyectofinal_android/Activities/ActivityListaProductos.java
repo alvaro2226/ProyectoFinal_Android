@@ -170,7 +170,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
             case R.id.menu_verPedidos: {
                 Log.e("Menu","Ver pedidos");
 
-                    startActivity(new Intent(this, ActivityDetallesPedido.class));
+                    startActivity(new Intent(this, ActivityPedidos.class));
                 break;
             }
 
