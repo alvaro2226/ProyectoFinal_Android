@@ -22,7 +22,7 @@ public class ActivityPedidos extends AppCompatActivity {
     private void initViews(){
         ListView lstOpciones;
         final String[] datos =
-                new String[]{"Elem1","Elem2","Elem3","Elem4","Elem5"};
+                new String[]{"Pedido 1","Pedido 2","Pedido 3","Pedido 4","Pedido 5"};
 
         ArrayAdapter<String> adaptador =
                 new ArrayAdapter<String>(this,
