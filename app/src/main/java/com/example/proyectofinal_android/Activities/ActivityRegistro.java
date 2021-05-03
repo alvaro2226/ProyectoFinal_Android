@@ -11,7 +11,7 @@ import com.example.proyectofinal_android.R;
 import java.util.ArrayList;
 
 public class ActivityRegistro extends AppCompatActivity {
-
+    
     private ArrayList<EditText> campos = new ArrayList<>();
     private EditText editText_nombreUsuario;
     private EditText editText_email;

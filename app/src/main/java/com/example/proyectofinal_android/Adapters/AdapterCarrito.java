@@ -3,6 +3,7 @@ package com.example.proyectofinal_android.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class AdapterCarrito extends ArrayAdapter<Producto> {
         TextView textView_nombre;
         TextView textView_Descripcion;
         TextView textView_precio;
+        TextView textView_totalProductos;
         Button botonMas;
         Button botonMenos;
         Button botonEliminar;
@@ -43,7 +45,7 @@ public class AdapterCarrito extends ArrayAdapter<Producto> {
         // Get the data item for this position
         Producto producto = productos.get(position);
         // Check if an existing view is being reused, otherwise inflate the view
-        AdapterCarrito.ViewHolder viewHolder; // view lookup cache stored in tag
+        final AdapterCarrito.ViewHolder viewHolder; // view lookup cache stored in tag
         final View result;
         if (convertView == null) {
 
@@ -53,6 +55,7 @@ public class AdapterCarrito extends ArrayAdapter<Producto> {
 
             viewHolder.textView_nombre = convertView.findViewById(R.id.textView_productoNombre);
             viewHolder.textView_Descripcion =  convertView.findViewById(R.id.textView_productoDescripcion2);
+            viewHolder.textView_totalProductos = convertView.findViewById(R.id.carrito_totalProducto);
             viewHolder.imagenProducto =  convertView.findViewById(R.id.imageView_imagenProducto);
             viewHolder.botonMas =  convertView.findViewById(R.id.botonMas);
             viewHolder.textView_precio = convertView.findViewById(R.id.carrito_precioProducto);
@@ -80,6 +83,31 @@ public class AdapterCarrito extends ArrayAdapter<Producto> {
                 notifyDataSetChanged();
             }
         });
+
+
+        viewHolder.botonMas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                int cantidad = Integer.valueOf(viewHolder.textView_totalProductos.getText()+"");
+                viewHolder.textView_totalProductos.setText(String.valueOf(cantidad + 1));
+            }
+        });
+        viewHolder.botonMenos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int cantidad = Integer.valueOf(viewHolder.textView_totalProductos.getText()+"");
+
+                if(cantidad - 1 != 0){
+                    viewHolder.textView_totalProductos.setText(String.valueOf(cantidad - 1));
+                }
+            }
+        });
+
+
+
         return convertView;
     }
 

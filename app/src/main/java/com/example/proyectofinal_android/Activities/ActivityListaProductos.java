@@ -1,4 +1,4 @@
-package com.example.proyectofinal_android.Activities;
+ package com.example.proyectofinal_android.Activities;
 
 import android.app.Activity;
 import android.content.Intent;

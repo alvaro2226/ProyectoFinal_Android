@@ -6,10 +6,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.proyectofinal_android.Adapters.AdapterProductos;
 import com.example.proyectofinal_android.Pojos.Producto;
@@ -19,15 +22,25 @@ import java.util.ArrayList;
 
 public class ActivityDetallesPedido extends AppCompatActivity {
 
-    ListView listView;
-    AdapterProductos adapter;
+    protected DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+    private ListView listView;
+    private static AdapterProductos adapter;
+    private SearchView editsearch;
+    public static ArrayList<Producto> productosAux;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detalles_pedido);
 
-        iniciarListView2();
+        productosAux = new ArrayList<>();
+
+        iniciarListView();
         //iniciarDrawer();
+
+
 
     }
     private void iniciarDrawer(){
@@ -47,9 +60,41 @@ public class ActivityDetallesPedido extends AppCompatActivity {
 
         }
 
+/*
     protected void iniciarListView2(){
         listView = findViewById(R.id.listView_DetallesPedido);
         adapter = new AdapterProductos(ActivityListaProductos.productosAux, getApplicationContext());
         listView.setAdapter(adapter);
     }
+
+ */
+
+    private void iniciarListView() {
+
+        listView = findViewById(R.id.listView_detalles_pedido);
+        ArrayList<Producto> productos = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Producto producto = new Producto();
+            producto.setNombre("Nombre " + i);
+            producto.setDescripcion("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae suscipit erat. Aenean vehicula gravida orci eu venenatis.");
+            productos.add(producto);
+            productosAux.add(producto);
+        }
+        adapter = new AdapterProductos(productos, getApplicationContext());
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("LISTVIEW ITEM CLICK", position + "");
+                //iniciarIntentProducto(position);
+            }
+        });
+
+
+    }
+
+
+
+
 }
