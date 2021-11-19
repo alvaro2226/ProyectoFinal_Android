@@ -1,26 +1,30 @@
 package com.example.proyectofinal_android.Pojos;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import java.io.Serializable;
 
 /**
  * @author Álvaro Morcillo Barbero
  */
-public class Producto implements Serializable {
+public class Producto {
 
     private int id;
     private String nombre;
     private String descripcion;
     private float precio;
-    private String imagen;
+    private String rutaImagen;
     private int stock;
+    private Bitmap imagen = null;
 
 
-    public Producto(int id, String nombre, String descripcion, float precio, String imagen, int stock) {
+    public Producto(int id, String nombre, String descripcion, float precio, String rutaImagen, int stock, Uri imagen) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.imagen = imagen;
+        this.rutaImagen = rutaImagen;
         this.stock = stock;
     }
 
@@ -61,12 +65,12 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String getRutaImagen() {
+        return rutaImagen;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 
     public int getStock() {
@@ -85,8 +89,15 @@ public class Producto implements Serializable {
                 " || nombre: " + this.nombre +
                 " || descripcion: " + this.descripcion +
                 " || precio: " + this.precio +
-                " || rutaImagen: " + this.imagen +
+                " || rutaImagen: " + this.rutaImagen +
                 " || stock: " + this.stock;
     }
 
+    public Bitmap getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Bitmap imagen) {
+        this.imagen = imagen;
+    }
 }

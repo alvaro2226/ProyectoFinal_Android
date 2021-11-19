@@ -2,6 +2,7 @@
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -25,6 +26,7 @@ import com.example.proyectofinal_android.Internet.OperacionesDB;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class ActivityListaProductos extends AppCompatActivity implements SearchView.OnQueryTextListener, NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +47,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         productos = new ArrayList<>();
 
         setNavigationViewListener();
+
 
         //Consulta a la db los productos
         new OperacionesDB(this, OperacionesDB.GET_PRODUCTOS,productos).execute();
@@ -97,9 +100,19 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
 
     }
 
+    public static Bitmap imagenProductoSeleccionado = null;
+
     private void iniciarIntentProducto(Producto producto) {
         Intent intent = new Intent(this, ActivityProducto.class);
-        intent.putExtra("producto", producto);
+
+        intent.putExtra("producto_id", producto.getId());
+        intent.putExtra("producto_nombre", producto.getNombre());
+        intent.putExtra("producto_desc", producto.getDescripcion());
+        intent.putExtra("producto_precio", producto.getPrecio());
+        intent.putExtra("producto_stock", producto.getStock());
+
+        imagenProductoSeleccionado = producto.getImagen();
+
         startActivity(intent);
     }
 

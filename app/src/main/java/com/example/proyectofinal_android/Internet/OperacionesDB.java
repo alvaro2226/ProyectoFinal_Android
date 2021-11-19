@@ -3,15 +3,30 @@ package com.example.proyectofinal_android.Internet;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.widget.ListView;
-
 import com.example.proyectofinal_android.Activities.ActivityListaProductos;
 import com.example.proyectofinal_android.Adapters.AdapterProductos;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.Util.Utils;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,6 +75,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                 "Conectando a la base de datos...");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     protected String doInBackground(Void... params) {
         try {
 
@@ -118,9 +134,19 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                         producto.setId(rs_productos.getInt("producto_id"));
                         producto.setNombre(rs_productos.getString("producto_nombre"));
                         producto.setDescripcion(rs_productos.getString("producto_descripcion"));
-                        producto.setImagen(rs_productos.getString("producto_imagen"));
+                        producto.setRutaImagen(rs_productos.getString("producto_imagen"));
                         producto.setPrecio(rs_productos.getFloat("producto_precio"));
                         producto.setStock(rs_productos.getInt("producto_stock"));
+
+                        //DESCARGA LA IMAGEN
+                        if(producto.getRutaImagen() != null){
+
+                            //Descarga un bitmap
+                            Bitmap imagen = Utils.descargarImagen(producto.getRutaImagen());
+                            producto.setImagen(imagen);
+
+                        }
+
 
                         productos.add(producto);
 
@@ -143,6 +169,10 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
             conexion.close();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

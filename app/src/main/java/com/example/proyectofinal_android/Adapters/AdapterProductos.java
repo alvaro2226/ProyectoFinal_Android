@@ -1,6 +1,10 @@
 package com.example.proyectofinal_android.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.R;
+import com.example.proyectofinal_android.Util.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AdapterProductos extends ArrayAdapter<Producto> {
@@ -64,7 +70,14 @@ public class AdapterProductos extends ArrayAdapter<Producto> {
 
         viewHolder.textView_nombre.setText(producto.getNombre());
         viewHolder.textView_Descripcion.setText(producto.getDescripcion());
-        viewHolder.imagenProducto.setImageResource(R.drawable.logo);
+
+        if (producto.getImagen() != null){
+            viewHolder.imagenProducto.setImageBitmap(producto.getImagen());
+        }else{
+            viewHolder.imagenProducto.setImageResource(R.drawable.logo);
+
+        }
+
         viewHolder.botonAñadir.setVisibility(View.INVISIBLE);
         viewHolder.botonAñadir.setOnClickListener(new View.OnClickListener() {
             @Override
