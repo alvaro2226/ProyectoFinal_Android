@@ -1,21 +1,21 @@
 package com.example.proyectofinal_android.Pojos;
-import java.io.File;
+
+import java.io.Serializable;
 
 /**
- *
  * @author Álvaro Morcillo Barbero
  */
-public class Producto {
+public class Producto implements Serializable {
 
     private int id;
     private String nombre;
     private String descripcion;
     private float precio;
-    private File imagen;
+    private String imagen;
     private int stock;
 
 
-    public Producto(int id, String nombre, String descripcion, float precio, File imagen, int stock) {
+    public Producto(int id, String nombre, String descripcion, float precio, String imagen, int stock) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -61,11 +61,11 @@ public class Producto {
         this.precio = precio;
     }
 
-    public File getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(File imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -75,6 +75,18 @@ public class Producto {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    @Override
+    public String toString() {
+
+        return "-- Producto -- \n " +
+                " || id: " + this.id +
+                " || nombre: " + this.nombre +
+                " || descripcion: " + this.descripcion +
+                " || precio: " + this.precio +
+                " || rutaImagen: " + this.imagen +
+                " || stock: " + this.stock;
     }
 
 }

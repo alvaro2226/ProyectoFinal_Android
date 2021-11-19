@@ -1,6 +1,5 @@
  package com.example.proyectofinal_android.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
@@ -22,6 +21,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.proyectofinal_android.Adapters.AdapterProductos;
+import com.example.proyectofinal_android.Internet.OperacionesDB;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.R;
 
@@ -34,7 +34,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     private ListView listView;
     private static AdapterProductos adapter;
     private SearchView editsearch;
-    public static ArrayList<Producto> productosAux;
+    public static ArrayList<Producto> productos;
     private boolean activityActual;
 
     @Override
@@ -42,11 +42,15 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listaproductos);
 
-        productosAux = new ArrayList<>();
+        productos = new ArrayList<>();
 
         setNavigationViewListener();
-        iniciarListView();
+
+        //Consulta a la db los productos
+        new OperacionesDB(this, OperacionesDB.GET_PRODUCTOS,productos).execute();
+
         initViews();
+        iniciarListView();
 
 
     }
@@ -70,9 +74,8 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         getSupportActionBar().setHomeButtonEnabled(true);
 
         editsearch = (SearchView) findViewById(R.id.search);
-        editsearch.setOnQueryTextListener(this);
-
-        editsearch.clearFocus();
+        //editsearch.setOnQueryTextListener(this);
+        //editsearch.clearFocus();
 
 
     }
@@ -80,14 +83,6 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     private void iniciarListView() {
 
         listView = findViewById(R.id.listView);
-        ArrayList<Producto> productos = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Producto producto = new Producto();
-            producto.setNombre("Nombre " + i);
-            producto.setDescripcion("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae suscipit erat. Aenean vehicula gravida orci eu venenatis.");
-            productos.add(producto);
-            productosAux.add(producto);
-        }
         adapter = new AdapterProductos(productos, getApplicationContext());
         listView.setAdapter(adapter);
 
@@ -95,16 +90,16 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("LISTVIEW ITEM CLICK", position + "");
-                iniciarIntentProducto(position);
+                iniciarIntentProducto(productos.get(position));
             }
         });
 
 
     }
 
-    private void iniciarIntentProducto(int position) {
+    private void iniciarIntentProducto(Producto producto) {
         Intent intent = new Intent(this, ActivityProducto.class);
-        intent.putExtra("posicionProducto", position);
+        intent.putExtra("producto", producto);
         startActivity(intent);
     }
 
@@ -147,8 +142,8 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     @Override
     public boolean onQueryTextChange(String s) {
 
-        Log.e("Search: ", s);
-        adapter.filter(s);
+        //Log.e("Search: ", s);
+        //adapter.filter(s);
         return false;
     }
 
