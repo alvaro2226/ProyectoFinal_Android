@@ -32,12 +32,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OperacionesDB extends AsyncTask<Void, Void, String> {
     public static final int COMPROBAR_USUARIO = 1;
-    public static final int REGISTRAR_USUARIO = 2;
+    public static final int AÑADIR_USUARIO = 2;
     public static final int GET_PRODUCTOS = 3;
     public static final int COMPROBAR_USUARIO4 = 4;
     public static List<String> lista;
@@ -48,7 +50,21 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
     private String contra;
     ArrayList<Producto> productos = null;
     private String resultado = null;
-    private AdapterProductos adapter;
+
+    private String calle = null;
+    private String localidad = null;
+    private String provincia = null;
+    private String codigoPostal = null;
+    private String pais = null;
+
+
+    private String nombre = null;
+    private String nombreUsuario = null;
+    private String contraseña = null;
+    private String email = null;
+    private String apellidos = null;
+    private String telefono = null;
+    private String dni = null;
 
     public OperacionesDB(Context context, int accion) {
         this.context = context;
@@ -68,6 +84,17 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
         this.context = context;
         this.accion = accion;
         this.productos = productos;
+    }
+
+    //constructor para la accion AÑADIR_USUARIO
+    public OperacionesDB(Context context, int accion, String calle, String localidad, String provincia, String codigoPostal, String pais) {
+        this.context = context;
+        this.accion = accion;
+        this.calle = calle;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.codigoPostal = codigoPostal;
+        this.pais = pais;
     }
 
     protected void onPreExecute() {
@@ -111,7 +138,39 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                 case 2:
                     //REGISTRA EL USUARIO EN LA BASE DE DATOS
 
+                    //añade la direccion
+                    PreparedStatement psDireccion = conexion.prepareStatement(ConsultasDB.añadirDireccion);
 
+                    psDireccion.setString(1, calle);
+                    psDireccion.setString(2, localidad);
+                    psDireccion.setString(3, provincia);
+                    psDireccion.setString(4, codigoPostal);
+                    psDireccion.setString(5, pais);
+
+                    psDireccion.execute();
+
+                    //añade el usuario
+
+                    PreparedStatement pst_usuario = null;
+
+                    pst_usuario = conexion.prepareStatement(ConsultasDB.añadirUsuario);
+
+                    pst_usuario.setString(1, nombreUsuario);
+                    pst_usuario.setString(2, email);
+                    pst_usuario.setString(3, contraseña);
+                    pst_usuario.setString(4, nombre);
+                    pst_usuario.setString(5, apellidos);
+                    pst_usuario.setString(6, telefono);
+
+                    Timestamp timestamp = Timestamp.valueOf(String.valueOf(LocalDateTime.now()));
+
+                    pst_usuario.setTimestamp(7, timestamp);
+                    //usuario tipo 3 cliente
+                    pst_usuario.setInt(8, 3);
+
+                    pst_usuario.setString(9, dni);
+
+                    pst_usuario.executeUpdate();
 
                     break;
 
