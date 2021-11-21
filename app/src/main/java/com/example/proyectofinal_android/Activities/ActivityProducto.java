@@ -43,7 +43,7 @@ public class ActivityProducto extends AppCompatActivity {
 
         producto_nombre.setText(intent.getStringExtra("producto_nombre"));
         producto_desc.setText(intent.getStringExtra("producto_desc"));
-        producto_precio.setText(intent.getFloatExtra("producto_precio", 0) + "");
+        producto_precio.setText(intent.getFloatExtra("producto_precio", 0) + " €");
 
         if(intent.getIntExtra("producto_stock", 0) > 0){
             producto_stock.setText("Disponible");

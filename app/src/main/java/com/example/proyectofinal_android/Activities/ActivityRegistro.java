@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.proyectofinal_android.Internet.OperacionesDB;
 import com.example.proyectofinal_android.R;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ActivityRegistro extends AppCompatActivity {
     private EditText editText_provincia;
     private EditText editText_codigopostal;
     private EditText editText_pais;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public class ActivityRegistro extends AppCompatActivity {
     }
 
     private void initViews() {
+
         editText_nombreUsuario = findViewById(R.id.editText_nombreUsuario);
         editText_email = findViewById(R.id.editText_email);
         editText_contra = findViewById(R.id.editText_contra);
@@ -62,9 +65,17 @@ public class ActivityRegistro extends AppCompatActivity {
 
         //Si los datos son correctos
         if(comprobarCampos()){
-            Intent intent = new Intent(this, ActivityLogin.class);
+            new OperacionesDB(this, OperacionesDB.AÑADIR_USUARIO,editText_calle.getText().toString(),editText_localidad.getText().toString(),
+                    editText_provincia.getText().toString(),editText_codigopostal.getText().toString(),editText_pais.getText().toString(),editText_nombre.getText().toString(),
+                    editText_nombreUsuario.getText().toString(),editText_contra.getText().toString(),editText_email.getText().toString(),editText_apellidos.getText().toString(),
+                    editText_telefono.getText().toString(),editText_codigopostal.getText().toString()).execute();
+
+            Intent intent = new Intent(this,ActivityLogin.class);
             intent.putExtra("nombreUsuario", editText_nombreUsuario.getText().toString());
+            intent.putExtra("contraseña", editText_contra.getText().toString());
+
             startActivity(intent);
+
         }
 
     }

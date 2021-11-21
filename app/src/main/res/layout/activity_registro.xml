@@ -61,7 +61,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="alvaro2226" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -80,7 +81,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textWebEmailAddress" />
+                    android:inputType="textWebEmailAddress"
+                    android:text="email@email.com" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -99,7 +101,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:text="123" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -118,7 +121,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="álvaro" />
 
                 <TextView
                     android:id="@+id/textView_apellidos"
@@ -137,7 +141,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="morcillo barbero" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -156,7 +161,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:text="68874114785" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -195,7 +201,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="number|textPostalAddress|phone" />
+                    android:inputType="number|textPostalAddress|phone"
+                    android:text="mayor 55" />
 
                 <TextView
                     android:id="@+id/direccion_localidad"
@@ -214,7 +221,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="tobarra" />
 
                 <TextView
                     android:id="@+id/textView_provincia"
@@ -233,7 +241,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="albacete" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -252,7 +261,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="02500" />
 
                 <TextView
                     android:id="@+id/textView_pais"
@@ -271,7 +281,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="españa" />
 
 
             </LinearLayout>

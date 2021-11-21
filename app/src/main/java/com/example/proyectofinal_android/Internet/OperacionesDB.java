@@ -35,6 +35,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OperacionesDB extends AsyncTask<Void, Void, String> {
@@ -86,8 +87,25 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
         this.productos = productos;
     }
 
-    //constructor para la accion AÑADIR_USUARIO
-    public OperacionesDB(Context context, int accion, String calle, String localidad, String provincia, String codigoPostal, String pais) {
+    /**
+     * @param context
+     * @param accion
+     * @param calle
+     * @param localidad
+     * @param provincia
+     * @param codigoPostal
+     * @param pais
+     * @param nombre
+     * @param nombreUsuario
+     * @param contraseña
+     * @param email
+     * @param apellidos
+     * @param telefono
+     * @param dni
+     */
+    //Constructor para la accion AÑADIR_USUARIO
+    public OperacionesDB(Context context, int accion, String calle, String localidad, String provincia, String codigoPostal, String pais,
+                         String nombre, String nombreUsuario, String contraseña, String email, String apellidos, String telefono, String dni) {
         this.context = context;
         this.accion = accion;
         this.calle = calle;
@@ -95,6 +113,13 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
         this.provincia = provincia;
         this.codigoPostal = codigoPostal;
         this.pais = pais;
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+        this.contraseña = contraseña;
+        this.email = email;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.dni = dni;
     }
 
     protected void onPreExecute() {
@@ -151,6 +176,12 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
                     //añade el usuario
 
+                    /*
+                    "INSERT INTO `usuario` (`usuario_id`, `usuario_nombreUsuario`, `usuario_email`, `usuario_contraseña`, `usuario_nombre`, `usuario_Apellidos`, " +
+                            "`usuario_telefono`, `usuario_fechaCreacion`, `usuario_tipoUsuario_id`, `usuario_direccion_id`, `usuario_dni`) " +
+                            "VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT direccion_id FROM direccion WHERE calle = ?), ?);";
+*/
+
                     PreparedStatement pst_usuario = null;
 
                     pst_usuario = conexion.prepareStatement(ConsultasDB.añadirUsuario);
@@ -162,13 +193,16 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                     pst_usuario.setString(5, apellidos);
                     pst_usuario.setString(6, telefono);
 
-                    Timestamp timestamp = Timestamp.valueOf(String.valueOf(LocalDateTime.now()));
 
-                    pst_usuario.setTimestamp(7, timestamp);
+                    Date date = new Date();
+                    pst_usuario.setTimestamp(7,  new Timestamp(date.getTime()));
+
                     //usuario tipo 3 cliente
                     pst_usuario.setInt(8, 3);
+                    //la calle del cliente que e va a añadir
+                    pst_usuario.setString(9, calle);
 
-                    pst_usuario.setString(9, dni);
+                    pst_usuario.setString(10, dni);
 
                     pst_usuario.executeUpdate();
 

@@ -14,11 +14,11 @@ public class ConsultasDB {
             + "producto_imagen, "
             + "producto_stock FROM producto";
 
-    public static String añadirUsuario = "INSERT INTO `usuario` (`usuario_id`, `usuario_nombreUsuario`, `usuario_email`, `usuario_contraseña`, `usuario_nombre`, `usuario_Apellidos`, " +
-            "`usuario_telefono`, `usuario_fechaCreacion`, `usuario_tipoUsuario_id`, `usuario_direccion_id`, `usuario_dni`) " +
-            "VALUES (NULL, 'alvaro', 'esassad', 'asddsad', 'aaawww', 'ssas', '1122', CURRENT_TIME(), '3', '2', 'awdds');";
+    public static final String añadirUsuario = "INSERT INTO `usuario` (`usuario_id`, `usuario_nombreUsuario`, `usuario_email`, `usuario_contraseña`, `usuario_nombre`, `usuario_Apellidos`," +
+            "                            `usuario_telefono`, `usuario_fechaCreacion`, `usuario_tipoUsuario_id`, `usuario_direccion_id`, `usuario_dni`) " +
+            "                            VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT direccion_id FROM direccion WHERE direccion_calle = ?), ?);";
 
-    public static String añadirDireccion = "INSERT INTO direccion VALUES (null,?, ?, ?, ?, ?);";
+    public static final String añadirDireccion = "INSERT INTO direccion VALUES (null,?, ?, ?, ?, ?);";
 
     /*
     INSERT INTO direccion VALUES (null,"cuenca 5", "tobarra", "albacete", "02500", "españa");

@@ -14,6 +14,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private EditText editText_nombreUsuario;
     private EditText editText_contra;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,13 @@ public class ActivityLogin extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initViews();
 
+
+        intent = getIntent();
+        //Si se acaba de crear un usuario
+            if(intent.hasExtra("nombreUsuario") && intent.hasExtra("contraseña")){
+                editText_nombreUsuario.setText(intent.getStringExtra("nombreUsuario"));
+                editText_contra.setText(intent.getStringExtra("contraseña"));
+            }
         //editText_nombreUsuario.setText(getIntent().getExtras().getString("nombreUsuario",""));
 
 
