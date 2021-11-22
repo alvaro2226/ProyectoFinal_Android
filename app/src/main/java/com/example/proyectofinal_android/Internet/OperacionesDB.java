@@ -4,37 +4,25 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import com.example.proyectofinal_android.Activities.ActivityListaProductos;
-import com.example.proyectofinal_android.Adapters.AdapterProductos;
+import com.example.proyectofinal_android.Activities.ActivityLogin;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.Util.Utils;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Paths;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +30,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
     public static final int COMPROBAR_USUARIO = 1;
     public static final int AÑADIR_USUARIO = 2;
     public static final int GET_PRODUCTOS = 3;
-    public static final int COMPROBAR_USUARIO4 = 4;
+    public static final int TRAMITAR_PEDIDO = 4;
     public static List<String> lista;
     private ProgressDialog mProgressDialog;
     private Context context;
@@ -86,6 +74,8 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
         this.accion = accion;
         this.productos = productos;
     }
+
+
 
     /**
      * @param context
@@ -150,7 +140,14 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                         //EL USUARIO EXISTE
                         Log.e("Conexion BDD" , "El usuario existe" );
                         resultado = "Complete";
+
+                        //Guarda el id del usuario para mas tarde
+                        Statement st = conexion.createStatement();
+                        ResultSet rs_id = st.executeQuery("SELECT usuario_id FROM usuario WHERE usuario_nombreUsuario = '" + usuario + "'" );
+                        rs.first();
+                        ActivityLogin.idUsuarioLogueado = rs.getInt(1);
                         context.startActivity(new Intent(context, ActivityListaProductos.class));
+
 
                     }else{
                         Log.e("Conexion BDD" , "No existe el usuario" );
@@ -254,8 +251,37 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                     break;
 
 
+                case TRAMITAR_PEDIDO:
+
+                    PreparedStatement pst_pedido = null;
+
+                    pst_pedido = conexion.prepareStatement(ConsultasDB.añadirPedido);
+//"INSERT INTO `pedido`(`pedido_id`, `pedido_fechaCreacion`, `pedido_usuario_id`," +
+//            " `pedido_costesEnvio`, `pedido_fechaEnvioEstimada`, `pedido_fechaEnvioRealizado`, `pedido_estadoPedido`," +
+//            " `pedido_metodoPago`, `pedido_pagado`, `pedido_empleadoAsignado`) " +
+//            "VALUES (null,?,?,?,null,null,?,?,?,null)";
+                    Date date2 = new Date();
+
+                    pst_pedido.setTimestamp(1,  new Timestamp(date2.getTime()));
+                    pst_pedido.setInt(2,ActivityLogin.idUsuarioLogueado);
+                    pst_pedido.setFloat(3,0f);
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                    Date result = cal.getTime();
+                    java.sql.Date sqlDate = new java.sql.Date(result.getTime());
+
+                    pst_pedido.setDate(4,sqlDate);
+                    pst_pedido.setInt(5,2); //preparado
+                    pst_pedido.setInt(6,3); //paga en tienda
+                    pst_pedido.setBoolean(7,false);
+
+                    pst_pedido.executeUpdate();
+
+                    break;
                 default:
-                    Log.e("Conexion BDD" , "Resultado = default" );
+
+                    Log.e("Conexion BDD" , "error" );
                     resultado = "Error";
             }
 

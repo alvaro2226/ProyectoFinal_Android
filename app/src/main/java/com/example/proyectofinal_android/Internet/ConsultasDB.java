@@ -20,9 +20,8 @@ public class ConsultasDB {
 
     public static final String añadirDireccion = "INSERT INTO direccion VALUES (null,?, ?, ?, ?, ?);";
 
-    /*
-    INSERT INTO direccion VALUES (null,"cuenca 5", "tobarra", "albacete", "02500", "españa");
-INSERT INTO usuario VALUES (null,"alvaro2226","ema@ema.com","contraseña","alvaro","morcillo barbero","654434",TimeStamp()	,3,SELECT direccion_id FROM direccion WHERE calle = cuenca 5,"774534353");
-
-     */
+    public static final String añadirPedido = "INSERT INTO `pedido`(`pedido_id`, `pedido_fechaCreacion`, `pedido_usuario_id`," +
+            " `pedido_costesEnvio`, `pedido_fechaEnvioEstimada`, `pedido_fechaEnvioRealizado`, `pedido_estadoPedido`," +
+            " `pedido_metodoPago`, `pedido_pagado`, `pedido_empleadoAsignado`) " +
+            "VALUES (null,?,?,?,?,null,?,?,?,null)";
 }

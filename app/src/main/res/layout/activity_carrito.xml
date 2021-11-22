@@ -8,7 +8,7 @@
     tools:openDrawer="start"
     tools:visibility="visible">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:id="@+id/layout_carrito"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,10 +48,11 @@
             android:id="@+id/botonEliminarCarrito"
             style="@style/df4_btn_danger"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:background="@color/colorProgressBar"
+            android:onClick="tramitarPedido"
             android:text="tramitar pedido"
             android:textAllCaps="true" />
 

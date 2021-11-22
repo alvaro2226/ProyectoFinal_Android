@@ -58,6 +58,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
+    public static int idUsuarioLogueado = 0;
     public void iniciarIntentProductos(View v) {
         //startActivity(new Intent(this, ActivityListaProductos.class));
         new OperacionesDB(this, OperacionesDB.COMPROBAR_USUARIO, editText_nombreUsuario.getText().toString(), editText_contra.getText().toString()).execute();

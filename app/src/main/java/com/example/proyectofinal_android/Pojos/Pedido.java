@@ -20,6 +20,22 @@ public class Pedido {
         this.id_usuarioAsignado = id_usuarioAsignado;
     }
 
+    public void setCostesEnvio(float costesEnvio) {
+        this.costesEnvio = costesEnvio;
+    }
+
+    public void setFechaEnvioRealizado(Date fechaEnvioRealizado) {
+        this.fechaEnvioRealizado = fechaEnvioRealizado;
+    }
+
+    public void setPagado(boolean pagado) {
+        this.pagado = pagado;
+    }
+
+    public Pedido() {
+
+    }
+
     public TimeStamp getFechaCreacion() {
         return fechaCreacion;
     }

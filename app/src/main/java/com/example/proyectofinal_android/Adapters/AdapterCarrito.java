@@ -75,7 +75,7 @@ public class AdapterCarrito extends ArrayAdapter<Linea_Pedido> {
 
         viewHolder.textView_nombre.setText(linea.getNombreProducto());
         viewHolder.textView_Descripcion.setText(linea.getLinea_pedido_desc());
-        viewHolder.textView_precio.setText(linea.getPrecioTotal() + "");
+        viewHolder.textView_precio.setText(linea.getPrecioTotal() + "€");
         viewHolder.textView_totalProductos.setText(linea.getLinea_pedido_cantidad() + "");
 
         //actualizarSubtotal();
@@ -91,7 +91,7 @@ public class AdapterCarrito extends ArrayAdapter<Linea_Pedido> {
             public void onClick(View view) {
                 lineas.remove(position);
                 notifyDataSetChanged();
-                ActivityCarrito.actualizarSubtotal(ActivityCarrito.ELIMINAR);
+                ActivityCarrito.actualizarSubtotal();
             }
         });
 
@@ -107,8 +107,8 @@ public class AdapterCarrito extends ArrayAdapter<Linea_Pedido> {
                 viewHolder.textView_totalProductos.setText(cantidad + "");
 
                 lineas.get(position).setLinea_pedido_cantidad(cantidad);
-                viewHolder.textView_precio.setText(linea.getPrecioTotal() + "");
-                ActivityCarrito.actualizarSubtotal(ActivityCarrito.MAS);
+                viewHolder.textView_precio.setText(linea.getPrecioTotal() + "€");
+                ActivityCarrito.actualizarSubtotal();
 
             }
         });
@@ -122,8 +122,8 @@ public class AdapterCarrito extends ArrayAdapter<Linea_Pedido> {
                     cantidad = cantidad - 1 ;
                     viewHolder.textView_totalProductos.setText(cantidad + "");
                     lineas.get(position).setLinea_pedido_cantidad(cantidad);
-                    viewHolder.textView_precio.setText(linea.getPrecioTotal() + "");
-                    ActivityCarrito.actualizarSubtotal(ActivityCarrito.MENOS);
+                    viewHolder.textView_precio.setText(linea.getPrecioTotal() + "€");
+                    ActivityCarrito.actualizarSubtotal();
                 }
 
 
