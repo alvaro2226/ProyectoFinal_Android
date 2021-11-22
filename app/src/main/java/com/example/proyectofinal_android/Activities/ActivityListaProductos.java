@@ -23,6 +23,7 @@ import android.widget.SearchView;
 
 import com.example.proyectofinal_android.Adapters.AdapterProductos;
 import com.example.proyectofinal_android.Internet.OperacionesDB;
+import com.example.proyectofinal_android.Pojos.Linea_Pedido;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.R;
 
@@ -37,6 +38,8 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     private static AdapterProductos adapter;
     private SearchView editsearch;
     public static ArrayList<Producto> productos;
+    public static ArrayList<Linea_Pedido> lineas = new ArrayList<>();
+
     private boolean activityActual;
 
     @Override
@@ -110,6 +113,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         intent.putExtra("producto_desc", producto.getDescripcion());
         intent.putExtra("producto_precio", producto.getPrecio());
         intent.putExtra("producto_stock", producto.getStock());
+        intent.putExtra("producto_rutaImagen",producto.getRutaImagen());
 
         imagenProductoSeleccionado = producto.getImagen();
 
@@ -141,6 +145,10 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Log.e("Menu","BotonCarrito");
+
+        for (int i = 0; i < lineas.size(); i++){
+            Log.e("Lineas pedido ->" + i , lineas.get(i).toString());
+        }
         startActivity(new Intent(this, ActivityCarrito.class));
         return super.onOptionsItemSelected(item);
 

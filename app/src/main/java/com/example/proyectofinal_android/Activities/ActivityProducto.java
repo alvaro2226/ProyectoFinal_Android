@@ -6,11 +6,13 @@ import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.proyectofinal_android.Pojos.Linea_Pedido;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.R;
 
@@ -61,6 +63,21 @@ public class ActivityProducto extends AppCompatActivity {
     }
 
     public void iniciarIntentAtras(View v) {
+
+        Linea_Pedido lineaPedido = new Linea_Pedido(
+                0,
+                intent.getIntExtra("producto_id",0),
+                1,
+                intent.getFloatExtra("producto_precio", 0),
+                0,
+                intent.getStringExtra("producto_desc"),
+                ActivityListaProductos.imagenProductoSeleccionado,
+                intent.getStringExtra("producto_nombre"));
+
+
+        ActivityListaProductos.lineas.add(lineaPedido);
+
+        Log.e("ActivityProducto " , "Linea añadida \n" + lineaPedido.toString());
         startActivity(new Intent(this, ActivityListaProductos.class));
     }
 }
