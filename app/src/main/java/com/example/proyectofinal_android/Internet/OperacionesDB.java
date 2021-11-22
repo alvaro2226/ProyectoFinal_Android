@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+
 import com.example.proyectofinal_android.Activities.ActivityListaProductos;
 import com.example.proyectofinal_android.Activities.ActivityLogin;
 import com.example.proyectofinal_android.Pojos.Producto;
@@ -76,7 +77,6 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
     }
 
 
-
     /**
      * @param context
      * @param accion
@@ -124,13 +124,13 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
             lista = new ArrayList<String>();
             Class.forName("com.mysql.jdbc.Driver");
             java.sql.Connection conexion = DriverManager.getConnection(Utils.url_DB, Utils.usuario_DB, Utils.contra_DB);
-            Log.e("Conexion BDD" , Utils.url_DB + "\n Usuario " + Utils.usuario_DB + "\n Contraseña" +  Utils.contra_DB );
+            Log.e("Conexion BDD", Utils.url_DB + "\n Usuario " + Utils.usuario_DB + "\n Contraseña" + Utils.contra_DB);
             switch (accion) {
 
                 case 1:
                     //ACTIVITY LOGIN
                     //COMPRUEBA QUE EL USUARIO EXISTE EN LA BASE DE DATOS, SI EXISTE INICIA SESIÓN
-                    Log.e("Conexion BDD" , "COMPROBAR_USUARIO \n Usuario:" + usuario + "\n Contraseña:" + contra );
+                    Log.e("Conexion BDD", "COMPROBAR_USUARIO \n Usuario:" + usuario + "\n Contraseña:" + contra);
                     PreparedStatement pst = conexion.prepareStatement(ConsultasDB.iniciarSesion);
                     pst.setString(1, contra);
                     pst.setString(2, usuario);
@@ -138,19 +138,19 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
                     if (rs.first()) {
                         //EL USUARIO EXISTE
-                        Log.e("Conexion BDD" , "El usuario existe" );
+                        Log.e("Conexion BDD", "El usuario existe");
                         resultado = "Complete";
 
                         //Guarda el id del usuario para mas tarde
                         Statement st = conexion.createStatement();
-                        ResultSet rs_id = st.executeQuery("SELECT usuario_id FROM usuario WHERE usuario_nombreUsuario = '" + usuario + "'" );
+                        ResultSet rs_id = st.executeQuery("SELECT usuario_id FROM usuario WHERE usuario_nombreUsuario = '" + usuario + "'");
                         rs.first();
                         ActivityLogin.idUsuarioLogueado = rs.getInt(1);
                         context.startActivity(new Intent(context, ActivityListaProductos.class));
 
 
-                    }else{
-                        Log.e("Conexion BDD" , "No existe el usuario" );
+                    } else {
+                        Log.e("Conexion BDD", "No existe el usuario");
                         resultado = "Inicio de sesión incorrecto";
                     }
 
@@ -192,7 +192,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
 
                     Date date = new Date();
-                    pst_usuario.setTimestamp(7,  new Timestamp(date.getTime()));
+                    pst_usuario.setTimestamp(7, new Timestamp(date.getTime()));
 
                     //usuario tipo 3 cliente
                     pst_usuario.setInt(8, 3);
@@ -208,7 +208,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                 case 3:
                     //HACE UNA CONSULTA DE LOS PRODUCTOS
 
-                    Log.e("Conexion BDD" , "CONSULTA PRODUCTOS");
+                    Log.e("Conexion BDD", "CONSULTA PRODUCTOS");
 
                     ResultSet rs_productos = null;
 
@@ -217,7 +217,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
                     rs_productos = st.executeQuery(ConsultasDB.getProductos);
 
-                    while(rs_productos.next()){
+                    while (rs_productos.next()) {
 
                         Producto producto = new Producto();
 
@@ -229,7 +229,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                         producto.setStock(rs_productos.getInt("producto_stock"));
 
                         //DESCARGA LA IMAGEN
-                        if(producto.getRutaImagen() != null){
+                        if (producto.getRutaImagen() != null) {
 
                             //Descarga un bitmap
                             Bitmap imagen = Utils.descargarImagen(producto.getRutaImagen());
@@ -240,12 +240,11 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
                         productos.add(producto);
 
-                        Log.e("CONSULTA PRODUCTOS" , producto.toString() );
+                        Log.e("CONSULTA PRODUCTOS", producto.toString());
 
                     }
 
                     ActivityListaProductos.productos = productos;
-
 
 
                     break;
@@ -253,35 +252,55 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
                 case TRAMITAR_PEDIDO:
 
+                    //INSERTA EL PEDIDO
+
+                    //Recoge el id del pedido para añadirlo mas tarde a las lineas
+                    Statement st_id = conexion.createStatement();
+                    ResultSet rs_id = st_id.executeQuery("SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'pedido'");
+                    rs_id.next();
+                    int id_pedido = rs_id.getInt(1);
+
                     PreparedStatement pst_pedido = null;
 
                     pst_pedido = conexion.prepareStatement(ConsultasDB.añadirPedido);
-//"INSERT INTO `pedido`(`pedido_id`, `pedido_fechaCreacion`, `pedido_usuario_id`," +
-//            " `pedido_costesEnvio`, `pedido_fechaEnvioEstimada`, `pedido_fechaEnvioRealizado`, `pedido_estadoPedido`," +
-//            " `pedido_metodoPago`, `pedido_pagado`, `pedido_empleadoAsignado`) " +
-//            "VALUES (null,?,?,?,null,null,?,?,?,null)";
-                    Date date2 = new Date();
 
-                    pst_pedido.setTimestamp(1,  new Timestamp(date2.getTime()));
-                    pst_pedido.setInt(2,ActivityLogin.idUsuarioLogueado);
-                    pst_pedido.setFloat(3,0f);
+                    Date date2 = new Date();
+                    pst_pedido.setTimestamp(1, new Timestamp(date2.getTime()));
+
+                    pst_pedido.setInt(2, ActivityLogin.idUsuarioLogueado);
+                    pst_pedido.setFloat(3, 0f);
 
                     Calendar cal = Calendar.getInstance();
                     cal.add(Calendar.DAY_OF_MONTH, 1);
                     Date result = cal.getTime();
                     java.sql.Date sqlDate = new java.sql.Date(result.getTime());
 
-                    pst_pedido.setDate(4,sqlDate);
-                    pst_pedido.setInt(5,2); //preparado
-                    pst_pedido.setInt(6,3); //paga en tienda
-                    pst_pedido.setBoolean(7,false);
+                    pst_pedido.setDate(4, sqlDate);
+                    pst_pedido.setInt(5, 2); //preparado
+                    pst_pedido.setInt(6, 3); //paga en tienda
+                    pst_pedido.setBoolean(7, false);
 
                     pst_pedido.executeUpdate();
 
+                    //AÑADE LAS LINEAS AL PEDIDO INSERTADO
+
+                    for (int i = 0; i < ActivityListaProductos.lineas.size(); i++) {
+
+                        PreparedStatement pst_linea = null;
+                        pst_linea = conexion.prepareStatement(ConsultasDB.añadirLinea);
+
+                        pst_linea.setInt(1,ActivityListaProductos.lineas.get(i).getLinea_pedido_producto_id());
+                        pst_linea.setInt(2,ActivityListaProductos.lineas.get(i).getLinea_pedido_cantidad());
+                        pst_linea.setInt(3,id_pedido);
+                        pst_linea.setFloat(4,ActivityListaProductos.lineas.get(i).getPrecioTotal());
+
+                        pst_linea.executeUpdate();
+
+                    }
                     break;
                 default:
 
-                    Log.e("Conexion BDD" , "error" );
+                    Log.e("Conexion BDD", "error");
                     resultado = "Error";
             }
 
@@ -305,11 +324,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
         mProgressDialog.dismiss();
 
 
-
     }
-
-
-
 
 
 }
