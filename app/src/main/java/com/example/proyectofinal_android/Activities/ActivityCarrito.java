@@ -1,10 +1,12 @@
 package com.example.proyectofinal_android.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.proyectofinal_android.Adapters.AdapterCarrito;
 import com.example.proyectofinal_android.Internet.OperacionesDB;
@@ -15,6 +17,7 @@ import com.example.proyectofinal_android.R;
 import org.apache.commons.net.ntp.TimeStamp;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ActivityCarrito extends AppCompatActivity {
 
@@ -50,7 +53,24 @@ public class ActivityCarrito extends AppCompatActivity {
 
     public void tramitarPedido (View view){
 
-        new OperacionesDB(this, OperacionesDB.TRAMITAR_PEDIDO).execute();
+
+
+        OperacionesDB thread =   new OperacionesDB(this, OperacionesDB.TRAMITAR_PEDIDO);
+        thread.execute();
+
+        try {
+            thread.get();
+
+            ActivityListaProductos.lineas.clear();
+            startActivity(new Intent(this,ActivityPedidos.class));
+            Toast.makeText(this,"El pedido se ha realizado correctamente", Toast.LENGTH_LONG).show();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
     private void iniciarListView() {

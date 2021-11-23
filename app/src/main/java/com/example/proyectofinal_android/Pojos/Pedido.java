@@ -2,12 +2,24 @@ package com.example.proyectofinal_android.Pojos;
 
 import org.apache.commons.net.ntp.TimeStamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Pedido {
 
     private TimeStamp fechaCreacion;
+
     private int usuario_id;
+    private Timestamp fechaCreacionTimestamp;
+    private int id;
+
+    public Timestamp getFechaCreacionTimestamp() {
+        return fechaCreacionTimestamp;
+    }
+
+    public void setFechaCreacionTimestamp(Timestamp fechaCreacionTimestamp) {
+        this.fechaCreacionTimestamp = fechaCreacionTimestamp;
+    }
 
     public Pedido(TimeStamp fechaCreacion, int usuario_id, float costesEnvio, Date fechaEnvioEstimada, int estadoPedido, int metodoPago, boolean pagado, int id_usuarioAsignado) {
         this.fechaCreacion = fechaCreacion;
@@ -105,4 +117,11 @@ public class Pedido {
     private boolean pagado = false;
     private int id_usuarioAsignado;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

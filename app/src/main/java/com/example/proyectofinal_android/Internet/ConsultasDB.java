@@ -27,4 +27,6 @@ public class ConsultasDB {
 
     public static final String añadirLinea = "INSERT INTO `linea_pedido` (`linea_pedido_id`, `linea_pedido_producto_id`, `linea_pedido_cantidad`, `linea_pedido_pedido_id`, `linea_pedido_total`) " +
             "VALUES (NULL, ?, ?, ?, ?)";
+
+    public static final String getPedidosUsuarioLogueado = "SELECT pedido_id, pedido_fechaCreacion FROM pedido WHERE pedido_usuario_id = ";
 }

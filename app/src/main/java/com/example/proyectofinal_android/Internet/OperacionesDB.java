@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.proyectofinal_android.Activities.ActivityListaProductos;
 import com.example.proyectofinal_android.Activities.ActivityLogin;
+import com.example.proyectofinal_android.Activities.ActivityPedidos;
+import com.example.proyectofinal_android.Pojos.Pedido;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.Util.Utils;
 
@@ -32,6 +36,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
     public static final int AÑADIR_USUARIO = 2;
     public static final int GET_PRODUCTOS = 3;
     public static final int TRAMITAR_PEDIDO = 4;
+    public static final int GET_PEDIDO_USUARIO_LOGUEADO = 5;
     public static List<String> lista;
     private ProgressDialog mProgressDialog;
     private Context context;
@@ -152,6 +157,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                     } else {
                         Log.e("Conexion BDD", "No existe el usuario");
                         resultado = "Inicio de sesión incorrecto";
+
                     }
 
 
@@ -297,6 +303,30 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                         pst_linea.executeUpdate();
 
                     }
+                    break;
+
+                case GET_PEDIDO_USUARIO_LOGUEADO:
+
+
+                    ActivityPedidos.pedidos.clear();
+                    Statement st_pedidos_usuario_logueado = conexion.createStatement();
+                    Log.e("CONSULTA PEDIDOS", ConsultasDB.getPedidosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
+                    ResultSet rs_pedidos_usuario_logueado =
+                            st_pedidos_usuario_logueado.executeQuery(ConsultasDB.getPedidosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
+
+                    rs_pedidos_usuario_logueado.first();
+                    do{
+                        Log.e("Resultset", "entra");
+                        Pedido pedido = new Pedido();
+                        pedido.setId(rs_pedidos_usuario_logueado.getInt(1));
+                        pedido.setFechaCreacionTimestamp(rs_pedidos_usuario_logueado.getTimestamp(2));
+                        Log.e("Pedido", pedido.getId() + " || " + pedido.getFechaCreacionTimestamp().toString());
+                        ActivityPedidos.pedidos.add(pedido);
+
+                    }while(rs_pedidos_usuario_logueado.next());
+
+                    resultado = "Completado";
+
                     break;
                 default:
 

@@ -79,6 +79,7 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
         editsearch = (SearchView) findViewById(R.id.search);
         //editsearch.setOnQueryTextListener(this);
         //editsearch.clearFocus();
