@@ -315,13 +315,13 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
                     ActivityPedidos.pedidos.clear();
                     Statement st_pedidos_usuario_logueado = conexion.createStatement();
-                    Log.e("CONSULTA PEDIDOS", ConsultasDB.getPedidosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
+                    //Log.e("CONSULTA PEDIDOS", ConsultasDB.getPedidosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
                     ResultSet rs_pedidos_usuario_logueado =
                             st_pedidos_usuario_logueado.executeQuery(ConsultasDB.getPedidosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
 
                     rs_pedidos_usuario_logueado.first();
                     do{
-                        Log.e("Resultset", "entra");
+                        //Log.e("Resultset", "entra");
                         Pedido pedido = new Pedido();
                         pedido.setId(rs_pedidos_usuario_logueado.getInt(1));
                         pedido.setFechaCreacionTimestamp(rs_pedidos_usuario_logueado.getTimestamp(2));

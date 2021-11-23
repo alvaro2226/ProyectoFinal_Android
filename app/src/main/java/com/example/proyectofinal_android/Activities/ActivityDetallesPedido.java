@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.proyectofinal_android.Adapters.AdapterProductos;
 import com.example.proyectofinal_android.Pojos.Producto;
@@ -29,6 +30,8 @@ public class ActivityDetallesPedido extends AppCompatActivity {
     private SearchView editsearch;
     public static ArrayList<Producto> productosAux;
 
+    TextView textView_idPedido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +43,18 @@ public class ActivityDetallesPedido extends AppCompatActivity {
         iniciarListView();
         //iniciarDrawer();
 
+        iniciarComponentes();
+
+        textView_idPedido.setText(String.valueOf(getIntent().getIntExtra("idPedido",0)));
 
 
     }
+
+    private void iniciarComponentes() {
+
+        textView_idPedido = findViewById(R.id.textview_idPedido);
+    }
+
     private void iniciarDrawer(){
 
          DrawerLayout drawer;
