@@ -61,8 +61,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="alvaro2226" />
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -81,8 +80,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textWebEmailAddress"
-                    android:text="email@email.com" />
+                    android:inputType="textWebEmailAddress" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -101,8 +99,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPassword"
-                    android:text="123" />
+                    android:inputType="textPassword" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -121,8 +118,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="álvaro" />
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/textView_apellidos"
@@ -141,8 +137,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="morcillo barbero" />
+                    android:inputType="textPersonName" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -161,8 +156,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
                     android:ems="10"
-                    android:inputType="phone"
-                    android:text="68874114785" />
+                    android:inputType="phone" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -200,9 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="0dp"
-                    android:ems="10"
-                    android:inputType="number|textPostalAddress|phone"
-                    android:text="mayor 55" />
+                    android:ems="10" />
 
                 <TextView
                     android:id="@+id/direccion_localidad"
@@ -222,7 +214,7 @@
                     android:layout_marginTop="0dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="tobarra" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/textView_provincia"
@@ -242,7 +234,7 @@
                     android:layout_marginTop="0dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="albacete" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -262,7 +254,7 @@
                     android:layout_marginTop="0dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="02500" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/textView_pais"
@@ -282,7 +274,7 @@
                     android:layout_marginTop="0dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="españa" />
+                    android:text="" />
 
 
             </LinearLayout>

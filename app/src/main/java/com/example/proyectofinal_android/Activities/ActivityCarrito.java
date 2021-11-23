@@ -3,6 +3,7 @@ package com.example.proyectofinal_android.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,21 +55,27 @@ public class ActivityCarrito extends AppCompatActivity {
     public void tramitarPedido (View view){
 
 
+        if(ActivityListaProductos.lineas.size() == 0 || ActivityListaProductos.lineas == null){
 
-        OperacionesDB thread =   new OperacionesDB(this, OperacionesDB.TRAMITAR_PEDIDO);
-        thread.execute();
+            Log.e("Pedido", "No se puede tramitar el pedido");
+        }else{
 
-        try {
-            thread.get();
+            OperacionesDB thread =   new OperacionesDB(this, OperacionesDB.TRAMITAR_PEDIDO);
+            thread.execute();
 
-            ActivityListaProductos.lineas.clear();
-            startActivity(new Intent(this,ActivityPedidos.class));
-            Toast.makeText(this,"El pedido se ha realizado correctamente", Toast.LENGTH_LONG).show();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                thread.get();
+
+                ActivityListaProductos.lineas.clear();
+                startActivity(new Intent(this,ActivityPedidos.class));
+                Toast.makeText(this,"El pedido se ha realizado correctamente", Toast.LENGTH_LONG).show();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
 
 
 

@@ -14,8 +14,10 @@ import android.widget.Toast;
 import com.example.proyectofinal_android.Activities.ActivityListaProductos;
 import com.example.proyectofinal_android.Activities.ActivityLogin;
 import com.example.proyectofinal_android.Activities.ActivityPedidos;
+import com.example.proyectofinal_android.Activities.ActivityRegistro;
 import com.example.proyectofinal_android.Pojos.Pedido;
 import com.example.proyectofinal_android.Pojos.Producto;
+import com.example.proyectofinal_android.Pojos.Usuario;
 import com.example.proyectofinal_android.Util.Utils;
 
 import java.io.IOException;
@@ -32,11 +34,14 @@ import java.util.Date;
 import java.util.List;
 
 public class OperacionesDB extends AsyncTask<Void, Void, String> {
+
     public static final int COMPROBAR_USUARIO = 1;
     public static final int AÑADIR_USUARIO = 2;
     public static final int GET_PRODUCTOS = 3;
     public static final int TRAMITAR_PEDIDO = 4;
     public static final int GET_PEDIDO_USUARIO_LOGUEADO = 5;
+    public static final int GET_DATOS_USUARIO_LOGUEADO = 6;
+
     public static List<String> lista;
     private ProgressDialog mProgressDialog;
     private Context context;
@@ -119,7 +124,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
     protected void onPreExecute() {
         mProgressDialog = ProgressDialog.show(context, "",
-                "Conectando a la base de datos...");
+                "");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -326,6 +331,31 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                     }while(rs_pedidos_usuario_logueado.next());
 
                     resultado = "Completado";
+
+                    break;
+
+                case GET_DATOS_USUARIO_LOGUEADO:
+
+                    Statement st_datos_usuario_logueado = conexion.createStatement();
+                    ResultSet rs_datos_usuario_logueado;
+
+                    Log.e("Consulta DatosUsuario", ConsultasDB.getDatosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
+                    rs_datos_usuario_logueado =
+                            st_datos_usuario_logueado.executeQuery(ConsultasDB.getDatosUsuarioLogueado + ActivityLogin.idUsuarioLogueado);
+                    rs_datos_usuario_logueado.first();
+
+
+                    ActivityRegistro.usuarioLogueado.setNombreUsuario(rs_datos_usuario_logueado.getString(1));
+                    ActivityRegistro.usuarioLogueado.setEmail(rs_datos_usuario_logueado.getString(2));
+                    ActivityRegistro.usuarioLogueado.setContra(rs_datos_usuario_logueado.getString(3));
+                    ActivityRegistro.usuarioLogueado.setNombre(rs_datos_usuario_logueado.getString(4));
+                    ActivityRegistro.usuarioLogueado.setApellidos(rs_datos_usuario_logueado.getString(5));
+                    ActivityRegistro.usuarioLogueado.setTelefono(rs_datos_usuario_logueado.getString(6));
+                    ActivityRegistro.usuarioLogueado.setCalle(rs_datos_usuario_logueado.getString(7));
+                    ActivityRegistro.usuarioLogueado.setLocalidad(rs_datos_usuario_logueado.getString(8));
+                    ActivityRegistro.usuarioLogueado.setProvincia(rs_datos_usuario_logueado.getString(9));
+                    ActivityRegistro.usuarioLogueado.setCp(rs_datos_usuario_logueado.getString(10));
+                    ActivityRegistro.usuarioLogueado.setPais(rs_datos_usuario_logueado.getString(11));
 
                     break;
                 default:

@@ -179,7 +179,9 @@ public class ActivityListaProductos extends AppCompatActivity implements SearchV
             case R.id.menu_verCuenta: {
 
                 Log.e("Menu","Ver cuenta");
-                startActivity(new Intent(this, ActivityRegistro.class));
+                Intent intent = new Intent(this,ActivityRegistro.class);
+                intent.putExtra("comprobarMisDatos","Si");
+                startActivity(intent);
 
                 break;
             }

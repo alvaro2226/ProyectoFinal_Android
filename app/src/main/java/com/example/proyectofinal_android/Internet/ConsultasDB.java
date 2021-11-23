@@ -29,4 +29,10 @@ public class ConsultasDB {
             "VALUES (NULL, ?, ?, ?, ?)";
 
     public static final String getPedidosUsuarioLogueado = "SELECT pedido_id, pedido_fechaCreacion FROM pedido WHERE pedido_usuario_id = ";
+
+    public static final String getDatosUsuarioLogueado = "SELECT usuario.usuario_nombreUsuario, usuario.usuario_email,usuario.usuario_contraseña, " +
+            "usuario.usuario_nombre, usuario.usuario_Apellidos, usuario.usuario_telefono, direccion.direccion_calle, " +
+            "direccion.direccion_localidad, direccion.direccion_provincia, direccion.direccion_codigoPostal, direccion.direccion_pais " +
+            "FROM usuario,direccion " +
+            "WHERE usuario.usuario_direccion_id = direccion.direccion_id and usuario_id =";
 }
