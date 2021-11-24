@@ -1,5 +1,6 @@
 package com.example.proyectofinal_android.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,43 +17,78 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.proyectofinal_android.Adapters.AdapterProductos;
+import com.example.proyectofinal_android.Internet.OperacionesDB;
+import com.example.proyectofinal_android.Pojos.Linea_Pedido;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.R;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class ActivityDetallesPedido extends AppCompatActivity {
 
     protected DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private ListView listView;
-    private static AdapterProductos adapter;
+    private AdapterProductos adapter;
     private SearchView editsearch;
-    public static ArrayList<Producto> productosAux;
+
+    public static String calleEmpresa;
+    public static String localidadEmpresa;
+    public static String provinciaEmpresa;
+    public static float precioTotal;
+    public static ArrayList<Producto> productos = new ArrayList<>();
 
     TextView textView_idPedido;
+    TextView textView_fechaPedido;
+    TextView textView_calleEmpresa;
+    TextView textView_localidadEmpresa;
+    TextView textView_provinciaEmpresa;
+    TextView textView_total;
 
+    private ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_detalles_pedido);
 
-        productosAux = new ArrayList<>();
 
-        iniciarListView();
-        //iniciarDrawer();
+        OperacionesDB db = new OperacionesDB(this, OperacionesDB.GET_DATOS_PEDIDO,getIntent().getIntExtra("idPedido",0));
+        db.execute();
+
+        try {
+            db.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        iniciarDrawer();
 
         iniciarComponentes();
 
         textView_idPedido.setText(String.valueOf(getIntent().getIntExtra("idPedido",0)));
+        textView_fechaPedido.setText(getIntent().getStringExtra("fechaPedido"));
+        textView_calleEmpresa.setText(calleEmpresa);
+        textView_localidadEmpresa.setText(localidadEmpresa);
+        textView_provinciaEmpresa.setText(provinciaEmpresa);
+        textView_total.setText(precioTotal + " €");
 
-
+        iniciarListView();
     }
 
     private void iniciarComponentes() {
 
         textView_idPedido = findViewById(R.id.textview_idPedido);
+        textView_fechaPedido = findViewById(R.id.textview_fechaPedido);
+         textView_calleEmpresa = findViewById(R.id.textview_calle2);
+         textView_localidadEmpresa = findViewById(R.id.textview_localidad2);
+         textView_provinciaEmpresa = findViewById(R.id.textview_provincia2);
+         textView_total = findViewById(R.id.textview_total2);
+         listView = findViewById(R.id.listView_detalles_pedido);
     }
 
     private void iniciarDrawer(){
@@ -72,27 +108,13 @@ public class ActivityDetallesPedido extends AppCompatActivity {
 
         }
 
-/*
-    protected void iniciarListView2(){
-        listView = findViewById(R.id.listView_DetallesPedido);
-        adapter = new AdapterProductos(ActivityListaProductos.productosAux, getApplicationContext());
-        listView.setAdapter(adapter);
-    }
-
- */
-
     private void iniciarListView() {
 
-        listView = findViewById(R.id.listView_detalles_pedido);
-        ArrayList<Producto> productos = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Producto producto = new Producto();
-            producto.setNombre("Nombre " + i);
-            producto.setDescripcion("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae suscipit erat. Aenean vehicula gravida orci eu venenatis.");
-            productos.add(producto);
-            productosAux.add(producto);
-        }
-        adapter = new AdapterProductos(productos, getApplicationContext());
+
+        ArrayList<Producto> productosAux = new ArrayList<>();
+        productosAux.addAll(productos);
+        productos.clear();
+        adapter = new AdapterProductos(productosAux, this);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -102,6 +124,7 @@ public class ActivityDetallesPedido extends AppCompatActivity {
                 //iniciarIntentProducto(position);
             }
         });
+
 
 
     }

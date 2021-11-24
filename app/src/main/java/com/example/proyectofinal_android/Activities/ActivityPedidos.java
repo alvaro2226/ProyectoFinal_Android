@@ -46,7 +46,6 @@ public class ActivityPedidos extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //Log.e("Pedidos", "va a entrar al loop, pedidos size= " + pedidos.size());
         for(int i = 0; i < pedidos.size() ; i++){
 
 
@@ -83,6 +82,13 @@ public class ActivityPedidos extends AppCompatActivity {
                 Log.e("Pedido ", pedidos.get(i).getId() + " seleccionado");
                 Intent intent = new Intent(context,ActivityDetallesPedido.class);
                 intent.putExtra("idPedido", pedidos.get(i).getId());
+
+
+                Timestamp timeStamp = pedidos.get(i).getFechaCreacionTimestamp();
+                Date date = new Date(timeStamp.getTime());
+                DateFormat dia = new SimpleDateFormat("dd-MM-yyyy");
+
+                intent.putExtra("fechaPedido", dia.format(date));
 
                 startActivity(intent);
             }

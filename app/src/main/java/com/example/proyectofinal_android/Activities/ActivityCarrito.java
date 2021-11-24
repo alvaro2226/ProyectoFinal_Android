@@ -67,6 +67,9 @@ public class ActivityCarrito extends AppCompatActivity {
                 thread.get();
 
                 ActivityListaProductos.lineas.clear();
+                adapter.clear();
+                textView_precioSubtotal.setText("0€");
+
                 startActivity(new Intent(this,ActivityPedidos.class));
                 Toast.makeText(this,"El pedido se ha realizado correctamente", Toast.LENGTH_LONG).show();
             } catch (ExecutionException e) {

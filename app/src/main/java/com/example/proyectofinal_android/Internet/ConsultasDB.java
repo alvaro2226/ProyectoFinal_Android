@@ -35,4 +35,12 @@ public class ConsultasDB {
             "direccion.direccion_localidad, direccion.direccion_provincia, direccion.direccion_codigoPostal, direccion.direccion_pais " +
             "FROM usuario,direccion " +
             "WHERE usuario.usuario_direccion_id = direccion.direccion_id and usuario_id =";
+
+    public static final String getDireccionEmpresa = "SELECT direccion.direccion_calle,direccion.direccion_localidad,direccion.direccion_provincia \n" +
+            "FROM direccion, datos_empresa WHERE direccion.direccion_id = datos_empresa_id";
+
+    public static String getLineasPedido = "SELECT producto.producto_nombre,producto.producto_descripcion,producto.producto_imagen,linea_pedido.linea_pedido_total " +
+            "FROM producto, linea_pedido " +
+            "WHERE producto.producto_id = linea_pedido.linea_pedido_producto_id AND linea_pedido_pedido_id =";
+
 }

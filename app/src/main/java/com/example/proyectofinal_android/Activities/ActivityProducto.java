@@ -78,6 +78,9 @@ public class ActivityProducto extends AppCompatActivity {
         ActivityListaProductos.lineas.add(lineaPedido);
 
         Log.e("ActivityProducto " , "Linea añadida \n" + lineaPedido.toString());
-        startActivity(new Intent(this, ActivityListaProductos.class));
+
+        Intent intent = new Intent(this,ActivityListaProductos.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 }

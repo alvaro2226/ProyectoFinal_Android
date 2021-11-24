@@ -11,10 +11,12 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.proyectofinal_android.Activities.ActivityDetallesPedido;
 import com.example.proyectofinal_android.Activities.ActivityListaProductos;
 import com.example.proyectofinal_android.Activities.ActivityLogin;
 import com.example.proyectofinal_android.Activities.ActivityPedidos;
 import com.example.proyectofinal_android.Activities.ActivityRegistro;
+import com.example.proyectofinal_android.Pojos.Linea_Pedido;
 import com.example.proyectofinal_android.Pojos.Pedido;
 import com.example.proyectofinal_android.Pojos.Producto;
 import com.example.proyectofinal_android.Pojos.Usuario;
@@ -41,6 +43,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
     public static final int TRAMITAR_PEDIDO = 4;
     public static final int GET_PEDIDO_USUARIO_LOGUEADO = 5;
     public static final int GET_DATOS_USUARIO_LOGUEADO = 6;
+    public static final int GET_DATOS_PEDIDO = 7;
 
     public static List<String> lista;
     private ProgressDialog mProgressDialog;
@@ -86,6 +89,15 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
         this.productos = productos;
     }
 
+    private int idPedidoSeleccionado = 0;
+
+    //Constructor para la accion GET_DATOS_PEDIDO
+    public OperacionesDB(Context context, int accion, int idPedido) {
+        this.context = context;
+        this.accion = accion;
+        this.idPedidoSeleccionado = idPedido;
+    }
+
 
     /**
      * @param context
@@ -124,7 +136,7 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
     protected void onPreExecute() {
         mProgressDialog = ProgressDialog.show(context, "",
-                "");
+                "Cargando...");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -358,6 +370,58 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
                     ActivityRegistro.usuarioLogueado.setPais(rs_datos_usuario_logueado.getString(11));
 
                     break;
+
+                case GET_DATOS_PEDIDO:
+
+                    //Direccion de la empresa
+                    Statement statement_get_datos_empresa = conexion.createStatement();
+                    ResultSet resultSet_datos_empresa;
+
+                    resultSet_datos_empresa = statement_get_datos_empresa.executeQuery(ConsultasDB.getDireccionEmpresa);
+                    resultSet_datos_empresa.first();
+
+                    ActivityDetallesPedido.calleEmpresa = resultSet_datos_empresa.getString(1);
+                    ActivityDetallesPedido.localidadEmpresa = resultSet_datos_empresa.getString(2);
+                    ActivityDetallesPedido.provinciaEmpresa = resultSet_datos_empresa.getString(3);
+
+                    //Lineas del pedido en cuestion
+
+                    Statement statement_lineas_pedido = conexion.createStatement();
+
+                    Log.e("Consulta lineas pedido", ConsultasDB.getLineasPedido + idPedidoSeleccionado);
+                    ResultSet resultSet_lineas_pedido =
+                            statement_lineas_pedido.executeQuery(ConsultasDB.getLineasPedido + idPedidoSeleccionado);
+
+                    resultSet_lineas_pedido.first();
+
+                    float total = 0f;
+                    do{
+                        Producto producto = new Producto();
+                        producto.setNombre(resultSet_lineas_pedido.getString(1));
+                        producto.setDescripcion(resultSet_lineas_pedido.getString(2));
+                        producto.setRutaImagen(resultSet_lineas_pedido.getString(3));
+
+                        total = total + resultSet_lineas_pedido.getFloat(4);
+                        Log.e("Total", total + "");
+
+                        //DESCARGA LA IMAGEN
+
+                        Log.e("Pedido descargado", producto.getNombre() + " ||  " + producto.getDescripcion() + " || " + producto.getRutaImagen());
+                        if ( producto.getRutaImagen() != null) {
+
+                            //Descarga un bitmap
+                            Bitmap imagen = Utils.descargarImagen(producto.getRutaImagen());
+                            producto.setImagen(imagen);
+
+                        }else{
+                            producto.setImagen(null);
+                        }
+
+                        ActivityDetallesPedido.precioTotal = total;
+                        ActivityDetallesPedido.productos.add(producto);
+
+                    }while(resultSet_lineas_pedido.next());
+                    break;
                 default:
 
                     Log.e("Conexion BDD", "error");
@@ -382,7 +446,6 @@ public class OperacionesDB extends AsyncTask<Void, Void, String> {
 
 
         mProgressDialog.dismiss();
-
 
     }
 

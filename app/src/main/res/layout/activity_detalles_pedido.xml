@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="20dp"
+    tools:openDrawer="start"
+    tools:visibility="visible">
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/constraintlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
     tools:openDrawer="start"
     tools:visibility="visible">
 
@@ -20,6 +26,7 @@
         android:layout_marginEnd="20dp"
         android:text="20€"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_idPedido" />
 
@@ -33,14 +40,14 @@
         android:text="023123"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_Fecha2" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_fechaPedido" />
 
     <TextView
         android:id="@+id/textview_Fecha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="75dp"
         android:text="Fecha"
 
         android:textColor="@color/black_alpha_75"
@@ -49,10 +56,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textview_Fecha2"
+        android:id="@+id/textview_fechaPedido"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="20dp"
 
         android:text="DD/MM/XX"
@@ -64,9 +71,9 @@
         android:id="@+id/textview_calle2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
 
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         android:text="Mayor 5 "
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,25 +83,25 @@
         android:id="@+id/textview_localidad2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="12dp"
 
+        android:layout_marginEnd="20dp"
         android:text="Tobarra"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_calle2" />
 
     <TextView
         android:id="@+id/textview_provincia2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="12dp"
 
+        android:layout_marginEnd="20dp"
         android:text="Albacete"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_localidad2" />
 
     <TextView
         android:id="@+id/textview_nPedido"
@@ -124,12 +131,13 @@
         android:id="@+id/textview_infoPagoTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-black"
-        android:text="Información sobre el pago"
+        android:text="Direccion para recoger el pedido"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_total" />
 
@@ -138,7 +146,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:text="Dirección:"
         android:textColor="@color/black_alpha_75"
         android:textSize="16sp"
@@ -178,24 +186,42 @@
         android:id="@+id/textview_detalles_compra"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-black"
         android:text="Detalles de la compra"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_provincia" />
 
     <ListView
         android:id="@+id/listView_detalles_pedido"
-        android:layout_width="wrap_content"
+        android:layout_width="355dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_detalles_compra" />
 </android.support.constraint.ConstraintLayout>
+
+
+<include
+layout="@layout/app_bar_main"
+android:layout_width="match_parent"
+android:layout_height="match_parent" />
+
+<android.support.design.widget.NavigationView
+android:id="@+id/nav_view"
+layout_height=""
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:layout_gravity="start"
+app:headerLayout="@layout/nav_header_main"
+app:menu="@menu/activity_main_drawer" />
+
+    </android.support.v4.widget.DrawerLayout>
